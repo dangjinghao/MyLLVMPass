@@ -1,4 +1,4 @@
-# A LLVM Out-of-tree Hello World Pass
+# A LLVM Out-of-source Hello World Pass
 
 ## Build
 

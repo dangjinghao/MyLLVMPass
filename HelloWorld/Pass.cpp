@@ -4,11 +4,18 @@
 #include <llvm/Passes/PassPlugin.h>
 #include <llvm/Support/raw_ostream.h>
 
+#ifndef PASS_NAME_EXT
+#define PASS_NAME_EXT "AnonPass"
+#endif
+
+#ifndef PASS_NAME
+#define PASS_NAME "Anon"
+#endif
+
 using namespace llvm;
 
 namespace {
-static size_t f_number = 0;
-struct HelloWorldPass : public PassInfoMixin<HelloWorldPass> {
+struct ThePass : public PassInfoMixin<ThePass> {
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM) {
     errs() << F.getName() << "\n";
     return PreservedAnalyses::all();
@@ -17,13 +24,13 @@ struct HelloWorldPass : public PassInfoMixin<HelloWorldPass> {
 } // end anonymous namespace
 
 extern "C" ::llvm::PassPluginLibraryInfo llvmGetPassPluginInfo() {
-  return {LLVM_PLUGIN_API_VERSION, "HelloWorldPass", LLVM_VERSION_STRING,
+  return {LLVM_PLUGIN_API_VERSION, PASS_NAME_EXT, LLVM_VERSION_STRING,
           [](PassBuilder &PB) {
             PB.registerPipelineParsingCallback(
                 [](StringRef Name, FunctionPassManager &FPM,
                    ArrayRef<PassBuilder::PipelineElement>) {
-                  if (Name == "hello-world") {
-                    FPM.addPass(HelloWorldPass());
+                  if (Name == PASS_NAME) {
+                    FPM.addPass(ThePass());
                     return true;
                   }
                   return false;
