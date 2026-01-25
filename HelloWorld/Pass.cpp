@@ -15,7 +15,8 @@
 using namespace llvm;
 
 namespace {
-struct ThePass : public PassInfoMixin<ThePass> {
+class ThePass : public PassInfoMixin<ThePass> {
+public:
   PreservedAnalyses run(Function &F, FunctionAnalysisManager &AM) {
     errs() << F.getName() << "\n";
     return PreservedAnalyses::all();
