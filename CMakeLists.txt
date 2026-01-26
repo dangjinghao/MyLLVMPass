@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.13)
 project(MyLLVMPass)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 find_package(LLVM REQUIRED CONFIG)
 message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
@@ -11,3 +12,4 @@ include_directories(${LLVM_INCLUDE_DIRS})
 
 add_subdirectory(HelloWorld)
 add_subdirectory(ConstantPropagation)
+add_subdirectory(DeadCodeElimination)
