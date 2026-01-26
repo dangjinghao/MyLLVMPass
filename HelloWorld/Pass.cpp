@@ -4,14 +4,6 @@
 #include <llvm/Passes/PassPlugin.h>
 #include <llvm/Support/raw_ostream.h>
 
-#ifndef PASS_NAME_EXT
-#define PASS_NAME_EXT "AnonPass"
-#endif
-
-#ifndef PASS_NAME
-#define PASS_NAME "Anon"
-#endif
-
 using namespace llvm;
 
 namespace {
