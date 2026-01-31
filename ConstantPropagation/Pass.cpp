@@ -195,7 +195,7 @@ public:
             BO->eraseFromParent();
             Changed = true;
           } else if (Op0 == Op1 && (BO->getOpcode() == Instruction::Sub ||
-                                     BO->getOpcode() == Instruction::FSub)) {
+                                    BO->getOpcode() == Instruction::FSub)) {
             // x - x => 0
             Constant *Zero;
             if (BO->getType()->isIntegerTy()) {
@@ -323,8 +323,11 @@ public:
       }
     }
 
-    if (Changed)
+    if (Changed) {
+      errs() << "Running Constant Propagation on function: " << F.getName()
+             << "\n";
       return PreservedAnalyses::none();
+    }
     return PreservedAnalyses::all();
   }
 };
